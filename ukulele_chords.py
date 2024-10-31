@@ -81,24 +81,28 @@ def showing_chords():
         base.seek(0)
         while True:
             line = base.readline()
-            if i + "" in line:
-                chord = Chords()
-                chord.name = i
-                space_pos = line.rfind(" ")
-                chord.grip = {
-                    1: [int(line[space_pos + 2]), int(line[space_pos + 3]), int(line[space_pos + 4]), int(line[space_pos + 5])],
-                    2: [int(line[space_pos + 8]), int(line[space_pos + 9]), int(line[space_pos + 10]), int(line[space_pos + 11])],
-                    3: [int(line[space_pos + 14]), int(line[space_pos + 15]), int(line[space_pos + 16]), int(line[space_pos + 17])],
-                    4: [int(line[space_pos + 20]), int(line[space_pos + 21]), int(line[space_pos + 22]),
-                        int(line[space_pos + 23])]}
-                chord.display()
+            if line != "":
+                if i + "" in line:
+                    chord = Chords()
+                    chord.name = i
+                    space_pos = line.rfind(" ")
+                    chord.grip = {
+                        1: [int(line[space_pos + 2]), int(line[space_pos + 3]), int(line[space_pos + 4]), int(line[space_pos + 5])],
+                        2: [int(line[space_pos + 8]), int(line[space_pos + 9]), int(line[space_pos + 10]), int(line[space_pos + 11])],
+                        3: [int(line[space_pos + 14]), int(line[space_pos + 15]), int(line[space_pos + 16]), int(line[space_pos + 17])],
+                        4: [int(line[space_pos + 20]), int(line[space_pos + 21]), int(line[space_pos + 22]),
+                            int(line[space_pos + 23])]}
+                    chord.display()
+                    break
+            else:
+                print(f"Invalid chord. There is no chord '{i}' in database.")
                 break
     base.close()
     homepage()
 
 
 def exercise():
-    print("Sorry, no functionality yet")
+    print("Sorry, no functionality yet\n")
     homepage()
     pass
 
