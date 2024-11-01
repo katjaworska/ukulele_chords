@@ -1,4 +1,6 @@
 from Chords import Chords
+import random
+from time import sleep
 
 
 def homepage():
@@ -6,8 +8,7 @@ def homepage():
     print("""    1. Show me specific chords
     2. Let's do some exercise
     3. Generate all chords to file
-    4. Exit
-    """)
+    4. Exit""")
     pick = input()
     match pick:
         case "1":
@@ -22,8 +23,8 @@ def homepage():
             pass
 
 
-def showing_chords():
-    """displays list of chords which user wants"""
+def inserting_chords():
+    """returns list of chords provided by the user"""
     moll_chords = {'c', 'd', 'e', 'f', 'g', 'a', 'h', 'b'}
     moll_chords_7 = {'c7', 'd7', 'e7', 'f7', 'g7', 'a7', 'h7', 'b7'}
     print("Write chords you want to see, separated with space")
@@ -34,13 +35,19 @@ def showing_chords():
             chords_list[chords_list.index(i)] = i.upper() + 'm'
         elif i in moll_chords_7:
             chords_list[chords_list.index(i)] = i[0].upper() + 'm' + '7'
+    return chords_list
+
+
+def showing_chords():
+    """displays list of chords which user wants"""
+    chords_list = inserting_chords()
     base = open('chords_base.txt', 'r')
     for i in chords_list:
         base.seek(0)
         while True:
             line = base.readline()
             if line != "":
-                if i + "" in line:
+                if i + " " in line:
                     chord = Chords()
                     chord.name = i
                     space_pos = line.rfind(" ")
@@ -63,9 +70,38 @@ def showing_chords():
 
 
 def exercise():
-    print("Sorry, no functionality yet\n")
+    print("""The program will display a random chord for selected time and then change to another.
+Try not to get lost and play along!\n""")
+    base = open("chords_base.txt", "r")
+    qty = int(input("I want to draw random chord ___ times:(insert number) "))
+    last = int(input("I want to see each chord for ___ seconds:(insert number)"))
+    all_chords = []
+    for i in ['3', '2', '1', '0', "Go!"]:
+        print(i)
+        sleep(1)
+
+    while True:
+        line = base.readline()
+        if line == "":
+            break
+        space_pos = line.rfind(" ")
+        chord = Chords()
+        chord.name = line[:space_pos]
+        chord.grip = {
+            1: [int(line[space_pos + 2]), int(line[space_pos + 3]), int(line[space_pos + 4]), int(line[space_pos + 5])],
+            2: [int(line[space_pos + 8]), int(line[space_pos + 9]), int(line[space_pos + 10]),
+                int(line[space_pos + 11])],
+            3: [int(line[space_pos + 14]), int(line[space_pos + 15]), int(line[space_pos + 16]),
+                int(line[space_pos + 17])],
+            4: [int(line[space_pos + 20]), int(line[space_pos + 21]), int(line[space_pos + 22]),
+                int(line[space_pos + 23])]}
+        all_chords.append(chord)
+    for i in range(qty):
+        random_chord = random.choice(all_chords)
+        random_chord.display()
+        sleep(last)
+    base.close()
     homepage()
-    pass
 
 
 def generate_all_to_file():
