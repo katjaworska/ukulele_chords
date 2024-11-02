@@ -73,8 +73,24 @@ def exercise():
     print("""The program will display a random chord for selected time and then change to another.
 Try not to get lost and play along!\n""")
     base = open("chords_base.txt", "r")
-    qty = int(input("I want to draw random chord ___ times:(insert number) "))
-    last = int(input("I want to see each chord for ___ seconds:(insert number)"))
+    while True:
+        qty_str = input("Number of chords to practice: (insert number) ")
+        try:
+            qty = int(qty_str)
+        except ValueError as e:
+            print("Invalid value. Insert a number. Error description: ", e)
+        else:
+            break
+
+    while True:
+        duration_str = input("Duration of displaying each chord: (insert number)")
+        try:
+            duration = int(duration_str)
+        except ValueError as e:
+            print("Invalid value. Insert a number. Error description: ", e)
+        else:
+            break
+
     all_chords = []
     for i in ['3', '2', '1', '0', "Go!"]:
         print(i)
@@ -99,7 +115,7 @@ Try not to get lost and play along!\n""")
     for i in range(qty):
         random_chord = random.choice(all_chords)
         random_chord.display()
-        sleep(last)
+        sleep(duration)
     base.close()
     homepage()
 
