@@ -6,8 +6,9 @@ The purpose is to learn and practice chords by doing exercises.
 
 Main functionality:
 - checking specific chords inserted by a user - displaying them in a graphic form;
-- doing exercises (not finished yet) - playing along with the program in real time;
-- generating a file with all chords or only chosen by the user;
+- doing exercises - playing along with the program in real time;
+- checking how good (or bad) you remember all chords - short quiz;
+- generating a .txt file with all chords or only chosen by the user;
 
 
 Chords in base are in the format:
